@@ -519,7 +519,7 @@ def load_gallery_page(usergal_page_url, paging_information):
     
     return None,None,None,gr.update(minimum=1, maximum=1, value=1),None                                                    
 
-def get_gallery_information(page_url=None, show_nsfw=False):
+def get_gallery_information(page_url=None, show_nsfw=True):
     modelid = None       
     if page_url:
         modelid, versionid = extract_model_info(page_url)
@@ -553,12 +553,6 @@ def get_user_gallery(modelid, page_url, show_nsfw):
                 
                 gallery_img_file = setting.get_image_url_to_gallery_file(image_info['url'])
                 
-                # NSFW filtering ....
-                if setting.NSFW_filtering_enable:
-                    # if not setting.NSFW_level[image_info["nsfwLevel"]]:
-                    if setting.NSFW_levels.index(image_info["nsfwLevel"]) > setting.NSFW_levels.index(setting.NSFW_level_user):                    
-                        gallery_img_file = setting.nsfw_disable_image
-                        meta_string = ""
                                     
                 if os.path.isfile(gallery_img_file):
                     img_url = gallery_img_file
@@ -570,7 +564,7 @@ def get_user_gallery(modelid, page_url, show_nsfw):
         
     return images_url, images_meta , images_list
            
-def get_image_page(modelid, page_url, show_nsfw=False):
+def get_image_page(modelid, page_url, show_nsfw=True):
     json_data = {}
 
     if not page_url:
@@ -587,7 +581,7 @@ def get_image_page(modelid, page_url, show_nsfw=False):
                         
     return json_data['items']
 
-def get_paging_information(modelId, modelVersionId = None, show_nsfw=False):
+def get_paging_information(modelId, modelVersionId = None, show_nsfw=True):
     totalPages = 0
     
     page_url = get_default_page_url(modelId, modelVersionId, show_nsfw)    
@@ -614,7 +608,7 @@ def get_paging_information(modelId, modelVersionId = None, show_nsfw=False):
 # cursor로 쿼리를 보내면 그 다음것부터 검색되어 리턴되고 있다. 
 # 명확해 질때까지 대기....
 # 페잊 수에 오류가 난다.
-def get_paging_information_working(modelId, modelVersionId = None, show_nsfw=False):
+def get_paging_information_working(modelId, modelVersionId = None, show_nsfw=True):
     totalPages = 0
     
     # 한번에 가져올수 있는 최대량은 200 이다.
@@ -780,7 +774,7 @@ def extract_url_cursor(url):
     
     return (cursor)
     
-def get_default_page_url(modelId, modelVersionId = None, show_nsfw=False, limit=0):
+def get_default_page_url(modelId, modelVersionId = None, show_nsfw=True, limit=0):
     
     if limit <= 0:
         limit = setting.usergallery_images_rows_per_page * setting.usergallery_images_column
@@ -794,9 +788,7 @@ def get_default_page_url(modelId, modelVersionId = None, show_nsfw=False, limit=
     if modelVersionId:
         page_url = f"{page_url}&modelVersionId={modelVersionId}"
         
-    if not show_nsfw:    
-        page_url = f"{page_url}&nsfw=false"
-
+    
     page_url = f"{page_url}&sort=Newest"
     
     return page_url

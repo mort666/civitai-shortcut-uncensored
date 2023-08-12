@@ -346,10 +346,7 @@ def on_classification_gallery_loading(shortcuts, page=0):
             if str(mid) in ISC.keys():
                 v = ISC[str(mid)]
                 if ishortcut.is_sc_image(v['id']):
-                    if 'nsfw' in v.keys() and bool(v['nsfw']) and setting.NSFW_filtering_enable:
-                        result_list.append((setting.nsfw_disable_image,setting.set_shortcutname(v['name'],v['id'])))
-                    else:                    
-                        result_list.append((os.path.join(setting.shortcut_thumbnail_folder,f"{v['id']}{setting.preview_image_ext}"),setting.set_shortcutname(v['name'],v['id'])))
+                    result_list.append((os.path.join(setting.shortcut_thumbnail_folder,f"{v['id']}{setting.preview_image_ext}"),setting.set_shortcutname(v['name'],v['id'])))
                 else:
                     result_list.append((setting.no_card_preview_image,setting.set_shortcutname(v['name'],v['id'])))
             else:

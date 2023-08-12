@@ -70,6 +70,9 @@ Four folders and five JSON files will be created, each serving the following rol
 * CivitaiShortCutBackupUrl.json : JSON file for backing up the URL during shortcut registration.
 
 # Change Log
+v 1.69.0
+- Ripped the nsfw bull out of the code... 
+
 v 1,6.3
 * The interface of the classification has been modified.
 * Added shortcut browser feature to the classification, improving convenience.

@@ -140,71 +140,8 @@ shortcut_info_folder =  "sc_infos"
 shortcut_gallery_folder =  "sc_gallery"
 
 no_card_preview_image = os.path.join(extension_base,"img","card-no-preview.png")
-nsfw_disable_image = os.path.join(extension_base,"img","nsfw-no-preview.png")
-
-NSFW_filtering_enable = True 
-# NSFW_level = { "None":True, "Soft":False, "Mature":False, "X":False } # None, Soft, Mature, X
-NSFW_levels = ("None","Soft","Mature","X") # None, Soft, Mature, X
-NSFW_level_user = "None"
 
 shortcut_env = dict()
-
-def set_NSFW(enable, level="None"):
-    # global NSFW_level
-    global NSFW_filtering_enable    
-    global NSFW_level_user
-    
-    NSFW_filtering_enable = enable
-    NSFW_level_user = level
-    
-    # if level == "Soft":
-    #     NSFW_level["None"] = True
-    #     NSFW_level["Soft"] = True
-    #     NSFW_level["Mature"] = False
-    #     NSFW_level["X"] = False  
-    # elif level == "Mature":
-    #     NSFW_level["None"] = True
-    #     NSFW_level["Soft"] = True
-    #     NSFW_level["Mature"] = True
-    #     NSFW_level["X"] = False  
-    # elif level == "X":
-    #     NSFW_level["None"] = True
-    #     NSFW_level["Soft"] = True
-    #     NSFW_level["Mature"] = True
-    #     NSFW_level["X"] = True        
-    # else:
-    #     # level == 1
-    #     NSFW_level["None"] = True
-    #     NSFW_level["Soft"] = False
-    #     NSFW_level["Mature"] = False
-    #     NSFW_level["X"] = False
-
-# def get_NSFW_Level():
-#     return NSFW_level_user
-
-#     prev = "None"
-#     for level, v in NSFW_level.items():
-#         if not v:
-#             return prev
-#         else:
-#             prev = level
-    
-#     return prev
-
-def save_NSFW():
-    global NSFW_filtering_enable
-    global NSFW_level_user
-    
-    environment = load()
-    if not environment:
-         environment = dict()  
-             
-    nsfw_filter = dict()    
-    nsfw_filter['nsfw_filter_enable'] = NSFW_filtering_enable
-    nsfw_filter['nsfw_level'] = NSFW_level_user
-    environment['NSFW_filter'] = nsfw_filter   
-    
-    save(environment)
          
 def init():
     global extension_base
@@ -268,15 +205,6 @@ def load_data():
                 
     environment = load()
     if environment:
-        if "NSFW_filter" in  environment.keys():
-            nsfw_filter = environment['NSFW_filter']
-            filtering_enable = True
-            if 'nsfw_filter_enable' in nsfw_filter.keys():
-                filtering_enable = bool(nsfw_filter['nsfw_filter_enable'])       
-                
-            if 'nsfw_level' in  nsfw_filter.keys():
-                set_NSFW(filtering_enable, nsfw_filter['nsfw_level'])
-            
         if "application_allow" in environment.keys():
             application_allow = environment['application_allow']
 

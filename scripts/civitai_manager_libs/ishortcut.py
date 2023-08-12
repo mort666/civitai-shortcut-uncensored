@@ -221,8 +221,6 @@ def update_shortcut(modelid, progress = None):
                 add_ISC[str(modelid)]["note"] = str(note)
                 add_ISC[str(modelid)]["date"] = date
                 
-                if 'nsfw' not in add_ISC[str(modelid)].keys():
-                    add_ISC[str(modelid)]["nsfw"] = False
                     
             ISC.update(add_ISC)
         else:
@@ -271,9 +269,6 @@ def update_shortcut_informations(modelid_list:list, progress):
                 add_ISC[str(modelid)]["note"] = str(note)
                 add_ISC[str(modelid)]["date"] = date
 
-                if 'nsfw' not in add_ISC[str(modelid)].keys():
-                    add_ISC[str(modelid)]["nsfw"] = False
-                    
                 # hot fix and delete model
                 # civitiai 에서 제거된 모델때문임
                 # tags 를 변경해줘야함
@@ -412,9 +407,7 @@ def update_thumbnail_images(progress):
     if not preISC:
         return
 
-    # nsfw_levels = setting.NSFW_levels #[nsfw_level for nsfw_level in setting.NSFW_level.keys()]
-    
-    for k, v in progress.tqdm(preISC.items(),desc="Update Shortcut's Thumbnails"):
+     for k, v in progress.tqdm(preISC.items(),desc="Update Shortcut's Thumbnails"):
         if v:
             # 사이트에서 최신 정보를 가져온다.
             version_info = civitai.get_latest_version_info_by_model_id(v['id'])
@@ -428,14 +421,10 @@ def update_thumbnail_images(progress):
             #     v['imageurl'] = version_info['images'][0]['url']
             #     download_thumbnail_image(v['id'], v['imageurl'])
                 
-            # nsfw 검색해서 최대한 건전한 이미지를 골라낸다.
             if len(version_info["images"]) > 0:
-                cur_nsfw_level = len(setting.NSFW_levels)
                 def_image = None
                 for img_dict in version_info["images"]:
-                    if setting.NSFW_levels.index(img_dict["nsfw"]) < cur_nsfw_level:
-                        cur_nsfw_level = setting.NSFW_levels.index(img_dict["nsfw"])
-                        def_image = img_dict["url"]
+                    def_image = img_dict["url"]
                         
                 if not def_image:
                     def_image = version_info["images"][0]["url"]
@@ -697,15 +686,10 @@ def add(ISC:dict, model_id, register_information_only=False, progress=None)->dic
                 # if len(def_version["images"]) > 0:
                 #     def_image = def_version["images"][0]["url"]
                     
-                # nsfw 검색해서 최대한 건전한 이미지를 골라낸다.
                 if len(def_version["images"]) > 0:
-                    # nsfw_levels = [nsfw_level for nsfw_level in setting.NSFW_level.keys()]
-                    cur_nsfw_level = len(setting.NSFW_levels)
                     def_image = None
                     for img_dict in def_version["images"]:
-                        if setting.NSFW_levels.index(img_dict["nsfw"]) < cur_nsfw_level:
-                            cur_nsfw_level = setting.NSFW_levels.index(img_dict["nsfw"])
-                            def_image = img_dict["url"]
+                        def_image = img_dict["url"]
                             
                     if not def_image:
                         def_image = def_version["images"][0]["url"]
@@ -729,7 +713,6 @@ def add(ISC:dict, model_id, register_information_only=False, progress=None)->dic
                 "type" : model_info['type'],
                 "name": model_info['name'],
                 "tags" : tags,
-                "nsfw" : model_info['nsfw'],
                 "url": f"{civitai.Url_ModelId()}{model_id}",
                 "versionid" : def_id,
                 "imageurl" : def_image,
