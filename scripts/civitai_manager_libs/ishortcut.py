@@ -407,7 +407,7 @@ def update_thumbnail_images(progress):
     if not preISC:
         return
 
-     for k, v in progress.tqdm(preISC.items(),desc="Update Shortcut's Thumbnails"):
+    for k, v in progress.tqdm(preISC.items(),desc="Update Shortcut's Thumbnails"):
         if v:
             # 사이트에서 최신 정보를 가져온다.
             version_info = civitai.get_latest_version_info_by_model_id(v['id'])
