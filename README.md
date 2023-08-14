@@ -1,5 +1,7 @@
 # Civitai Shortcut
 
+**Basically any reference to the imposed NSFW filter that was added with 1.6.x has been removed, as the way it was implemented there wasn't any way to disable, UI options for turning off had been removed there was a lot of code implementing it and making sure you saw like 2 pictures for most Civitai models it was like using basic SD 1.4 so I went the other way there is none. If you don't like NSFW then use the original. Otherwise...**
+
 Stable Diffusion Webui Extension for Civitai, to download civitai shortcut and models.
 
 # Install
