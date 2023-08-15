@@ -72,6 +72,10 @@ Four folders and five JSON files will be created, each serving the following rol
 * CivitaiShortCutBackupUrl.json : JSON file for backing up the URL during shortcut registration.
 
 # Change Log
+v 1.69.1 
+- Manual merge of upstream, vetted code to ensure no regression to censored state.
+- Changed a handful of messages to 'Queens/Kings' English as it was bugging me.
+- 
 v 1.69.0
 - Ripped the nsfw bull out of the code... 
 

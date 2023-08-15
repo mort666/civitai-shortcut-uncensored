@@ -19,12 +19,27 @@ NORESULT = "[No Result]"
 NEWRECIPE = "[New Prompt Recipe]"
 NEWCLASSIFICATION = "[New Classification]"
 
-CREATE_MODEL_FOLDER = "Create a model folder to download the model"    
+CREATE_MODEL_FOLDER = "Create a model folder to download the model to"    
 # CREATE_MODEL_FOLDER = "Create a model folder with the model name"    
 
 model_exts = (".bin", ".pt", ".safetensors", ".ckpt")
 
-model_basemodels = ("SD 1.4", "SD 1.5", "SD 2.0", "SD 2.0 768", "SD 2.1", "SD 2.1 768", "SD 2.1 Unclip", "SDXL 0.9", "SDXL 1.0", "Other")
+# Manual merge of upstream to vet changes.
+
+model_basemodels = {
+    "SD 1.4":"SD1", 
+    "SD 1.5":"SD1", 
+    "SD 2.0":"SD2", 
+    "SD 2.0 768":"SD2", 
+    "SD 2.1":"SD2", 
+    "SD 2.1 768":"SD2", 
+    "SD 2.1 Unclip":"SD2", 
+    "SDXL 0.9":"SDXL", 
+    "SDXL 1.0":"SDXL", 
+    "Other":"Unknown"
+}
+
+# model_basemodels = ("SD 1.4", "SD 1.5", "SD 2.0", "SD 2.0 768", "SD 2.1", "SD 2.1 768", "SD 2.1 Unclip", "SDXL 0.9", "SDXL 1.0", "Other")
 
 # civitai model type -> folder path
 model_folders = {
